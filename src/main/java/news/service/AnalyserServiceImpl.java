@@ -2,8 +2,7 @@ package news.service;
 
 
 import news.model.MockDto;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,12 +12,12 @@ import java.util.Set;
 /**
  * Created by Lenovo on 8/25/2021.
  */
-@Component
+@Service
 public class AnalyserServiceImpl implements AnalyserService {
     int counter = 0;
+
     @Override
     public void receive(MockDto mockDto) throws InterruptedException {
-        //positive List
         List<String> positive = new ArrayList<>();
         positive.add("up");
         positive.add("good");
@@ -32,6 +31,11 @@ public class AnalyserServiceImpl implements AnalyserService {
         //check positive or not
         double percent = 100.0 * combination.stream().filter(positive::contains).count() / combination.size();
 
+        CheckPositive(mockDto, combination, set, percent);
+
+    }
+
+    private void CheckPositive(MockDto mockDto, List<String> combination, Set<String> set, double percent) throws InterruptedException {
         if (percent > 50) {
             System.out.println("-----------------------------------------------------------------------------------------");
             System.out.println("Showing The Positive News : This message with headline: " + mockDto.getHeadline() + "is Positive");
@@ -50,7 +54,6 @@ public class AnalyserServiceImpl implements AnalyserService {
                 System.out.println("Interesting news :This message is more than 50% positive and contains this headline :" + mockDto.getPriority() + "  and has highest priority");
             }
         }
-
     }
 
 
