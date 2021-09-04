@@ -17,6 +17,6 @@ public class AnalyserController {
     @PostMapping("/execute")
     public String receive(@RequestBody MockDto mockDto) throws InterruptedException {
          analyserService.receive(mockDto);
-      return "Receive" ;
+      return "this message with priority: "+mockDto.getPriority()+" and headline :"+mockDto.getHeadline()+"  has Received" ;
     }
 }
